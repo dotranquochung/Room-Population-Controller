@@ -16,7 +16,7 @@ The system consists of several important features to function correctly. The sys
 
 Counting People in a Room
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Our initial thought is to use two IR sensors, one is outside the room, and another is inside the room. If the one outside the room finds the person first, then the person is entering the room. Otherwise, the person is exiting the room.
+Our initial thought is to use two ultrasonic/IR sensors, one is outside the room, and another is inside the room. If the one outside the room finds the person first, then the person is entering the room. Otherwise, the person is exiting the room.
 
 
 Calculating Size of a Room
@@ -42,5 +42,5 @@ Cost
 ---------------------------------
 The cost of building this system is awaiting to be calculated.
 
-* IR Sensors x 2 (FC-51 IR sensor)
+* Ultrasonic Sensor x 2
 * 
