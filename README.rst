@@ -42,5 +42,5 @@ Cost
 ---------------------------------
 The cost of building this system is awaiting to be calculated.
 
-* Grove - 80 cm Infrared Proximity Sensor x 2: $18
+* Sharp GP2Y0A21YK0F GP2Y0A21 80 cm Infrared Proximity Sensor x 2: $18
 * 
