@@ -42,5 +42,5 @@ Cost
 ---------------------------------
 The cost of building this system is awaiting to be calculated.
 
-* Ultrasonic Sensor x 2
-* 
+* Ultrasonic Sensor x 2 - $9.29 for 5pc
+* IR Sensor (if ultrasonic sensors do not work, we will switch to IR sensors)
