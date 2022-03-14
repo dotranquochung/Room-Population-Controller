@@ -32,6 +32,7 @@ Sharing Data through Multiple Subsystems
 Choice 1: Multiple Arduinos/RPIs communicate with each other using nRF. We can use various types of communication modules like Bluetooth module, nRF24L01, etc. For our problem we can effectively use nRF. And we can set which one is parent and which all are children. A single unit can receive from 6 other modules and vice versa.
 
 With the following two choices, we can possibly build Web App to monitor data.
+
 Choice 2: ESP8266 WiFi module 
 
 Choice 3: BLE Bluetooth module
