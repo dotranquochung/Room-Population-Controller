@@ -29,8 +29,14 @@ We can use two modules or we can rotate just one to measure the size of a room.
 
 Sharing Data through Multiple Subsystems
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Multiple Arduinos/RPIs communicate with each other using nRF. We can use various types of communication modules like Bluetooth module, nRF24L01, etc. For our problem we can effectively use nRF. And we can set which one is parent and which all are children. A single unit can receive from 6 other modules and vice versa.
+Choice 1: Multiple Arduinos/RPIs communicate with each other using nRF. We can use various types of communication modules like Bluetooth module, nRF24L01, etc. For our problem we can effectively use nRF. And we can set which one is parent and which all are children. A single unit can receive from 6 other modules and vice versa.
 
+Choice 2: ESP8266 WiFi module 
+
+Choice 3: BLE Bluetooth module
 Cost
 ---------------------------------
 The cost of building this system is awaiting to be calculated.
+
+* IR Sensors x 2 (FC-51 IR sensor)
+* 
