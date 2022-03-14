@@ -35,6 +35,8 @@ With the following two choices, we can possibly build Web App to monitor data.
 Choice 2: ESP8266 WiFi module 
 
 Choice 3: BLE Bluetooth module
+
+
 Cost
 ---------------------------------
 The cost of building this system is awaiting to be calculated.
