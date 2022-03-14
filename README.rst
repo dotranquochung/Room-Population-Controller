@@ -26,6 +26,7 @@ Suggestion:
 https://learn.sparkfun.com/tutorials/tfmini---micro-lidar-module-hookup-guide/all 
 We can use two modules or we can rotate just one to measure the size of a room.
 
+The occupancy load is calculated by dividing the area of a room by its prescribed unit of area per person. We could define the unit of area per person by following an appropriate social distancing.
 
 Sharing Data through Multiple Subsystems
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
