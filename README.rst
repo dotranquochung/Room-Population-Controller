@@ -50,8 +50,8 @@ The cost of building this system is waiting to be calculated.
 * Bluno Bee - Turn Arduino to a Bluetooth 4.0 (BLE) Ready Board x 2: $20 https://www.dfrobot.com/product-1073.html
 * Gravity: IO Expansion Shield for Arduino V7.1 x 2: $20 https://www.dfrobot.com/product-1009.html
 * Battery Holder 4xAA Barrel Connector for Arduino x 2: $10
+* AA Battery(16): $14
 * Piezo Buzzer x 2: $9
-* Jumper Wires(20cm) x 2: $14
 
 Schedule
 ---------------------------------
