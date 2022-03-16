@@ -16,32 +16,43 @@ The system consists of several important features to function correctly. The sys
 
 Counting People in a Room
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Our initial thought is to use two ultrasonic/IR sensors, one is outside the room, and another is inside the room. If the one outside the room finds the person first, then the person is entering the room. Otherwise, the person is exiting the room.
+Our initial thought is to use two ultrasonic/IR sensors, one is outside the room, and another is inside the room. If the one outside the room finds the person first, then the person is entering the room. Otherwise, the person is exiting the room. This is probably the easiest part. We will firstly tackle this system.
 
 
 Calculating Size of a Room
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Ultrasonic might not be able to detect distances over 8 meters. 
-Suggestion:
-https://learn.sparkfun.com/tutorials/tfmini---micro-lidar-module-hookup-guide/all 
-We can use two modules or we can rotate just one to measure the size of a room.
+We can use two laser sensors or we can rotate just one to measure the size of a room.
 
-The occupancy load is calculated by dividing the area of a room by its prescribed unit of area per person. We could define the unit of area per person by following an appropriate social distancing.
+If we are going to use rotation, we should think about how to mount the sensor to the servo motor so that they can rotate together. It is very likely we will take this approach because the laser sensor is expensive.
+
+The occupancy load is calculated by dividing the area of a room by its prescribed unit of area per person. We could define the unit of area per person by following an appropriate social distancing. We hope this unit of area can be changed remotely through Bluetooth by sending from phones if we have time.
 
 Sharing Data through Multiple Subsystems
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Choice 1: Multiple Arduinos/RPIs communicate with each other using nRF. We can use various types of communication modules like Bluetooth module, nRF24L01, etc. For our problem we can effectively use nRF. And we can set which one is parent and which all are children. A single unit can receive from 6 other modules and vice versa.
+Choice 1: Multiple Arduinos/RPIs communicate with each other using nRF. We can use various types of communication modules like Bluetooth module, nRF24L01, etc. For our problem, we can effectively use nRF. And we can set which one is the parent and which all are children. A single unit can receive from 6 other modules and vice versa.
 
-With the following two choices, we can possibly build Web App to monitor data.
+With the following two choices, we can possibly build a Web App to monitor data if we have time.
 
 Choice 2: ESP8266 WiFi module 
 
-Choice 3: BLE Bluetooth module
+Choice 3: Bluno Bee BLE Bluetooth module (We will take this approach, it looks like this module has a larger range)
 
 
 Cost
 ---------------------------------
-The cost of building this system is awaiting to be calculated.
+The cost of building this system is waiting to be calculated.
 
-* Sharp GP2Y0A21YK0F GP2Y0A21 80 cm Infrared Proximity Sensor x 2: $18
-* 
+* Arudino Uno Rev3 x 2
+* Sharp GP2Y0A21YK0F GP2Y0A21 80 cm Infrared Proximity Sensor x 2: $18 (two used for calculating the number of people in a room)
+* Infrared Laser Distance Sensor (50m / 80m) x 1: $70 https://www.dfrobot.com/product-2108.html
+* Servo motor x 1 (We should already have more than 1)
+* Bluno Bee - Turn Arduino to a Bluetooth 4.0 (BLE) Ready Board x 2: $20 https://www.dfrobot.com/product-1073.html
+* Gravity: IO Expansion Shield for Arduino V7.1 x 2: $20 https://www.dfrobot.com/product-1009.html
+* Battery Holder 4xAA Barrel Connector for Arduino x 2: $10
+* Piezo Buzzer x 2: $9
+* Jumper Wires(20cm) x 2: $14
+
+Schedule
+---------------------------------
+
