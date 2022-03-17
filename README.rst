@@ -61,4 +61,4 @@ The cost of building this system is waiting to be calculated.
 Schedule
 ---------------------------------
 
-.. image:: https://github.com/dotranquochung/Room-Population-Controller/blob/main/Final_Group_Project_Schedule.png
+.. image:: https://github.com/dotranquochung/Room-Population-Controller/blob/main/Schedule.png
