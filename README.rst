@@ -62,3 +62,5 @@ Schedule
 ---------------------------------
 
 .. image:: https://github.com/dotranquochung/Room-Population-Controller/blob/main/Schedule.png
+
+**Note:** The schedule is not accurate and subject to change. It depends on if we could successfully deliver the first and second task. The third and the fourth task become hard and we assume we will start early. And we will split work, and this is not shown in the schedule.
