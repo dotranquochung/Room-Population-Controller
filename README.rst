@@ -56,6 +56,7 @@ The cost of building this system is waiting to be calculated.
 * Battery Holder 4xAA Barrel Connector for Arduino x 2: $10
 * AA Battery(16): $14
 * Piezo Buzzer x 2: $9
+* Jumper Wires
 
 Schedule
 ---------------------------------
