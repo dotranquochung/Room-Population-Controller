@@ -18,13 +18,17 @@ Counting People in a Room
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Our initial thought is to use two ultrasonic/IR sensors, one is outside the room, and another is inside the room. If the one outside the room finds the person first, then the person is entering the room. Otherwise, the person is exiting the room. This is probably the easiest part. We will firstly tackle this system.
 
+This system will also have an alarm. It is mainly used to warn the people who is entering if the room is full. 
+
 
 Calculating Size of a Room
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Ultrasonic might not be able to detect distances over 8 meters. 
-We can use two laser sensors or we can rotate just one to measure the size of a room.
+The idea is to place the system at the corner of a room, and it can measure the width and length of a room and then calculate the size of the room. We can use two laser sensors or we can rotate just one to measure the size of a room.
 
-If we are going to use rotation, we should think about how to mount the sensor to the servo motor so that they can rotate together. It is very likely we will take this approach because the laser sensor is expensive.
+If we are going to use rotation, we should think about how to mount the sensor to the servo motor so that they can rotate together. It is very likely we will take this approach because the laser sensor is expensive. We should consider how we mount the sensor onto the servo motor.
+
+We are not sure about if the laser sensor could detect the white wall or not, so this part becomes a little bit tricky.
 
 The occupancy load is calculated by dividing the area of a room by its prescribed unit of area per person. We could define the unit of area per person by following an appropriate social distancing. We hope this unit of area can be changed remotely through Bluetooth by sending from phones if we have time.
 
@@ -36,7 +40,7 @@ With the following two choices, we can possibly build a Web App to monitor data 
 
 Choice 2: ESP8266 WiFi module 
 
-Choice 3: Bluno Bee BLE Bluetooth module (We will take this approach, it looks like this module has a larger range)
+Choice 3: Bluno Bee BLE Bluetooth module (We will take this approach, it looks like this module has a larger range). With this approach, the two main systems could communicate with each other. We also hope we can use our phones to send data to the room size measure system to change the setting(such as unit of area). Imagine in a low risk area, we could decrease unit of area to increase the occupancy load os that we could have more people in a room. 
 
 
 Cost
@@ -52,7 +56,9 @@ The cost of building this system is waiting to be calculated.
 * Battery Holder 4xAA Barrel Connector for Arduino x 2: $10
 * AA Battery(16): $14
 * Piezo Buzzer x 2: $9
+* Jumper Wires
 
 Schedule
 ---------------------------------
 
+.. image:: https://github.com/dotranquochung/Room-Population-Controller/blob/main/Final_Group_Project_Schedule.png
