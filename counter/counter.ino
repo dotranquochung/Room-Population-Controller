@@ -18,7 +18,9 @@ int sensor1Initial;
 int sensor2Initial;
 
 String sequence = "";
-
+String msg = "";
+char inbyte;
+int counter = 0;
 int timeoutCounter = 0;
 
 void setup() {
@@ -32,13 +34,29 @@ void setup() {
   sensor1Initial = measureDistance(sensor1);
   sensor2Initial = measureDistance(sensor2);
   lcd.setCursor(0,0);
-//  Serial.println("Testing");
   lcd.print("Testing");
-//  delay(1000);
+  delay(1000);
   lcd.clear();
 }
 
 void loop() {
+  msg = "";
+  if (Serial.available()) {
+    inbyte = Serial.read();
+    msg += inbyte;
+    delay(300);
+  }
+  while (Serial.available()) {
+    inbyte = Serial.read();
+    msg += inbyte;
+  }
+  if (msg == "query") {
+    counter++;
+    Serial.println("Query " + String(counter) + " times");
+    lcd.clear();
+    lcd.setCursor(0,0);
+    lcd.print("Query " + String(counter) + " times");
+  }
   //Read ultrasonic sensors
 //  int sensor1Val = measureDistance(sensor1);
 //  int sensor2Val = measureDistance(sensor2);
@@ -102,15 +120,6 @@ void loop() {
     noTone(buzzer);
   }
 */
-  if (Serial.available()) {
-    Serial.println("Hello World");
-    lcd.setCursor(0,0);
-    lcd.print("Hello World");
-    delay(1000);
-  }
-
-  
-  
 }
 
 //Returns the distance of the ultrasonic sensor that is passed in
