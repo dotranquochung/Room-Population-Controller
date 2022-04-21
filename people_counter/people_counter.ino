@@ -27,7 +27,8 @@ String msg = "";
 char inbyte;
 String sequence = "";
 int timeoutCounter = 0;
-bool processing = false;
+unsigned long lastEntered;
+unsigned long done;
 
 void setup() {
   //Setup code
@@ -39,22 +40,22 @@ void setup() {
 
   sensor1Initial = 0;
   sensor2Initial = 0;
-  for (int i = 0; i < 10; i++) {
-    sensor1Initial += sensor[0].ping_cm();
-    delay(100);
-    sensor2Initial += sensor[1].ping_cm();
-    delay(100);
-  }
-  sensor1Initial /= 10;
-  sensor2Initial /= 10;
+//  for (int i = 0; i < 10; i++) {
+//    sensor1Initial += sensor[0].ping_cm();
+//    delay(100);
+//    sensor2Initial += sensor[1].ping_cm();
+//    delay(100);
+//  }
+//  sensor1Initial /= 10;
+//  sensor2Initial /= 10;
   lcd.setCursor(0,0);
   lcd.print("Testing");
-  lcd.setCursor(0,1);
-  lcd.print("Initial 1: ");
-  lcd.print(sensor1Initial);
-  lcd.setCursor(0,2);
-  lcd.print("Initial 2: ");
-  lcd.print(sensor2Initial);
+//  lcd.setCursor(0,1);
+//  lcd.print("Initial 1: ");
+//  lcd.print(sensor1Initial);
+//  lcd.setCursor(0,2);
+//  lcd.print("Initial 2: ");
+//  lcd.print(sensor2Initial);
   delay(2000);
   lcd.clear();
 }
@@ -74,28 +75,24 @@ void loop() {
     Serial.print("Current number of people: ");
     Serial.println(currentPeople);
   }
+  if (msg.substring(0,3) == "max") {
+    maxPeople = int(msg.substring(4);
+  }
   
   //Read ultrasonic sensors
   float sensor1Val = sensor[0].ping_cm();
   float sensor2Val = sensor[1].ping_cm();
 
-  //Process the data
-//  if(processing) {
-//    if (sensor1Val >= sensor1Initial - 50 && sequence.charAt(2) != '1') {
-//      sequence += "1";
-//    } 
-//    if (sensor2Val >= sensor2Initial - 50 && sequence.charAt(2) != '2') {
-//      sequence += "2";
-//    }
-//  }
-//  else {
-    if (sensor1Val < sensor1Initial - 50 && sequence.charAt(0) != '1') {
+  if (millis() - done >= 600) {
+    if (sensor1Val < 50 && sequence.charAt(0) != '1') {
       sequence += "1";
+      lastEntered = millis();
     }
-    if (sensor2Val < sensor2Initial - 50 && sequence.charAt(0) != '2') {
+    if (sensor2Val < 50 && sequence.charAt(0) != '2') {
       sequence += "2";
+      lastEntered = millis();
     }
-//  }
+  }
 
   lcd.setCursor(0, 0);
   lcd.print("Seq: ");
@@ -105,11 +102,9 @@ void loop() {
   lcd.print("Current People: ");
   lcd.print(currentPeople);
   lcd.setCursor(0, 2);
-  lcd.print("Processing: ");
-  lcd.print(processing);
-  lcd.setCursor(0,3);
   lcd.print("1: ");
   lcd.print(sensor1Val);
+  lcd.setCursor(0, 3);
   lcd.print(" 2: ");
   lcd.print(sensor2Val);
   lcd.print("  ");
@@ -117,19 +112,21 @@ void loop() {
   if (sequence.length() >= 2) {
     if (sequence.equals("12")) {
       currentPeople++;
-      while(sensor2Val < sensor2Initial - 50);
     } else if (sequence.equals("21") && currentPeople > 0) {
       currentPeople--;
-      while(sensor1Val < sensor1Initial - 50);
     }
+    done = millis();
     sequence = "";
   }
+
+  if(millis() - lastEntered > 700)
+    sequence = "";
   
   //Resets the sequence if it is invalid or timeouts
   if (sequence.length() > 2 || sequence.equals("11") || sequence.equals("22") || timeoutCounter > 200) {
     sequence = "";
   }
-  if (sequence.length() == 1) { //
+  if (sequence.length() >= 1) { //
     timeoutCounter++;
   } else {
     timeoutCounter = 0;
