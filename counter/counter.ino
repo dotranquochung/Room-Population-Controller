@@ -5,23 +5,29 @@ int sensitivity = 5; //lower values will make it more sensitive and higher value
 
 #include <LiquidCrystal_I2C.h>                                                         
 #include <Wire.h>
+#include <NewPing.h>
 
 LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4);
+int lastLCD = millis();
 
 int currentPeople = 0;
 
 int buzzer = 8;
 
-int sensor1[] = {5, 4};
-int sensor2[] = {7 , 6};
-int sensor1Initial;
-int sensor2Initial;
+//int sensor1[] = {2, 3};
+//int sensor2[] = {10, 11};
+NewPing sensor[2] = {
+  NewPing(3, 2, 130),
+  NewPing(11, 10, 130)
+};
+float sensor1Initial;
+float sensor2Initial;
 
-String sequence = "";
 String msg = "";
 char inbyte;
-int counter = 0;
+String sequence = "";
 int timeoutCounter = 0;
+bool processing = false;
 
 void setup() {
   //Setup code
@@ -29,13 +35,27 @@ void setup() {
   lcd.init();
   lcd.backlight();
   pinMode(buzzer, OUTPUT);
-
   delay(500);
-  sensor1Initial = measureDistance(sensor1);
-  sensor2Initial = measureDistance(sensor2);
+
+  sensor1Initial = 0;
+  sensor2Initial = 0;
+  for (int i = 0; i < 10; i++) {
+    sensor1Initial += sensor[0].ping_cm();
+    delay(100);
+    sensor2Initial += sensor[1].ping_cm();
+    delay(100);
+  }
+  sensor1Initial /= 10;
+  sensor2Initial /= 10;
   lcd.setCursor(0,0);
   lcd.print("Testing");
-  delay(1000);
+  lcd.setCursor(0,1);
+  lcd.print("Initial 1: ");
+  lcd.print(sensor1Initial);
+  lcd.setCursor(0,2);
+  lcd.print("Initial 2: ");
+  lcd.print(sensor2Initial);
+  delay(2000);
   lcd.clear();
 }
 
@@ -51,75 +71,77 @@ void loop() {
     msg += inbyte;
   }
   if (msg == "query") {
-    counter++;
-    Serial.println("Query " + String(counter) + " times");
-    lcd.clear();
-    lcd.setCursor(0,0);
-    lcd.print("Query " + String(counter) + " times");
+    Serial.print("Current number of people: ");
+    Serial.println(currentPeople);
   }
+  
   //Read ultrasonic sensors
-//  int sensor1Val = measureDistance(sensor1);
-//  int sensor2Val = measureDistance(sensor2);
+  float sensor1Val = sensor[0].ping_cm();
+  float sensor2Val = sensor[1].ping_cm();
 
-/*
   //Process the data
-  if (sensor1Val < sensor1Initial - 30 && sequence.charAt(0) != '1') {
-    sequence += "1";
-  } else if (sensor2Val < sensor2Initial - 30 && sequence.charAt(0) != '2') {
-    sequence += "2";
-  }
+//  if(processing) {
+//    if (sensor1Val >= sensor1Initial - 50 && sequence.charAt(2) != '1') {
+//      sequence += "1";
+//    } 
+//    if (sensor2Val >= sensor2Initial - 50 && sequence.charAt(2) != '2') {
+//      sequence += "2";
+//    }
+//  }
+//  else {
+    if (sensor1Val < sensor1Initial - 50 && sequence.charAt(0) != '1') {
+      sequence += "1";
+    }
+    if (sensor2Val < sensor2Initial - 50 && sequence.charAt(0) != '2') {
+      sequence += "2";
+    }
+//  }
 
-  if (sequence.equals("12")) {
-    currentPeople++;
+  lcd.setCursor(0, 0);
+  lcd.print("Seq: ");
+  lcd.print(sequence);
+  lcd.print("    ");
+  lcd.setCursor(0, 1);
+  lcd.print("Current People: ");
+  lcd.print(currentPeople);
+  lcd.setCursor(0, 2);
+  lcd.print("Processing: ");
+  lcd.print(processing);
+  lcd.setCursor(0,3);
+  lcd.print("1: ");
+  lcd.print(sensor1Val);
+  lcd.print(" 2: ");
+  lcd.print(sensor2Val);
+  lcd.print("  ");
+  
+  if (sequence.length() >= 2) {
+    if (sequence.equals("12")) {
+      currentPeople++;
+      while(sensor2Val < sensor2Initial - 50);
+    } else if (sequence.equals("21") && currentPeople > 0) {
+      currentPeople--;
+      while(sensor1Val < sensor1Initial - 50);
+    }
     sequence = "";
-    delay(550);
-  } else if (sequence.equals("21") && currentPeople > 0) {
-    currentPeople--;
-    sequence = "";
-    delay(550);
   }
-
+  
   //Resets the sequence if it is invalid or timeouts
   if (sequence.length() > 2 || sequence.equals("11") || sequence.equals("22") || timeoutCounter > 200) {
     sequence = "";
   }
-
   if (sequence.length() == 1) { //
     timeoutCounter++;
   } else {
     timeoutCounter = 0;
   }
-  
-  //Print values to serial
-  //  Serial.print("Seq: ");
-  //  Serial.print(sequence);
-  //  Serial.print(" S1: ");
-  //  Serial.print(sensor1Val);
-  //  Serial.print(" S2: ");
-  //  Serial.println(sensor2Val);
-  //  Serial.print(" Current People: ");
-  //  Serial.println(currentPeople);
-  
-  lcd.setCursor(0, 0);
-  lcd.print("Seq: ");
-  lcd.print(sequence);
-//  lcd.setCursor(0, 0);
-  lcd.print(" S1: ");
-  lcd.print(sensor1Val);
-//  lcd.setCursor(0, 0);
-  lcd.print(" S2: ");
-  lcd.print(sensor2Val);
-  lcd.setCursor(0, 1);
-  lcd.print(" Current People: ");
-  lcd.print(currentPeople);
 
   //If the number of people is too high, trigger the buzzer
-  if (currentPeople > maxPeople) {
-    tone(buzzer, 1700);
-  } else {
-    noTone(buzzer);
-  }
-*/
+//  if (currentPeople > maxPeople) {
+//    tone(buzzer, 1700);
+//  } else {
+//    noTone(buzzer);
+//  }
+
 }
 
 //Returns the distance of the ultrasonic sensor that is passed in
