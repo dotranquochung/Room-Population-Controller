@@ -1,25 +1,32 @@
 
-int maxPeople = 5; // maximum number of people allowed before the alarm goes off
+int maxPeople; // maximum number of people allowed before the alarm goes off
 int sensitivity = 5; //lower values will make it more sensitive and higher values will make it less sensitive
 //---------------------------------------------------
 
 #include <LiquidCrystal_I2C.h>                                                         
 #include <Wire.h>
-#include <NewPing.h>
+//#include <NewPing.h>
+#include "pitches.h"
 
 LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4);
 int lastLCD = millis();
 
 int currentPeople = 0;
 
+float area;
+float areaPerPerson;
+String areaString;
+String capString;
+//char *charBuffer;
+
 int buzzer = 8;
 
-//int sensor1[] = {2, 3};
-//int sensor2[] = {10, 11};
-NewPing sensor[2] = {
-  NewPing(3, 2, 130),
-  NewPing(11, 10, 130)
-};
+int sensor1[] = {2, 3};
+int sensor2[] = {9, 10};
+//NewPing sensor[2] = {
+//  NewPing(3, 2, 130),
+//  NewPing(10, 9, 130)
+//};
 float sensor1Initial;
 float sensor2Initial;
 
@@ -75,13 +82,34 @@ void loop() {
     Serial.print("Current number of people: ");
     Serial.println(currentPeople);
   }
-  if (msg.substring(0,3) == "max") {
-    maxPeople = int(msg.substring(4);
+  else if (msg.substring(0,4) == "area") {
+    areaString = msg.substring(5);
+//    *charBuffer = (char *)malloc(areaString.length() * sizeof(char));
+//    areaString.toCharArray(*charBuffer, areaString.length() + 1);
+//    area = atof(*charBuffer);
+    area = areaString.toFloat();
+    Serial.println(area);
+    if (area != 0 && areaPerPerson != 0) {
+      maxPeople = (int)(area/areaPerPerson);
+      Serial.println(maxPeople);
+    }
+  }
+  else if (msg.substring(0,3) == "cap") {
+    capString = msg.substring(4);
+//    *charBuffer = (char *)malloc(capString.length() * sizeof(char));
+//    capString.toCharArray(*charBuffer, capString.length() + 1);
+//    areaPerPerson = atof(*charBuffer);
+    areaPerPerson = capString.toFloat();
+    Serial.println(areaPerPerson);
+    if (area != 0 && areaPerPerson != 0) {
+      maxPeople = (int)(area/areaPerPerson);
+      Serial.println(maxPeople);
+    }
   }
   
   //Read ultrasonic sensors
-  float sensor1Val = sensor[0].ping_cm();
-  float sensor2Val = sensor[1].ping_cm();
+  float sensor1Val = measureDistance(sensor1);
+  float sensor2Val = measureDistance(sensor2);
 
   if (millis() - done >= 600) {
     if (sensor1Val < 50 && sequence.charAt(0) != '1') {
@@ -112,8 +140,10 @@ void loop() {
   if (sequence.length() >= 2) {
     if (sequence.equals("12")) {
       currentPeople++;
+      getIn();
     } else if (sequence.equals("21") && currentPeople > 0) {
       currentPeople--;
+      getOut();
     }
     done = millis();
     sequence = "";
@@ -133,12 +163,28 @@ void loop() {
   }
 
   //If the number of people is too high, trigger the buzzer
-//  if (currentPeople > maxPeople) {
-//    tone(buzzer, 1700);
-//  } else {
-//    noTone(buzzer);
-//  }
+  if (maxPeople > 0 && currentPeople > maxPeople) {
+    tone(buzzer, 1700);
+  } else {
+    noTone(buzzer);
+  }
 
+}
+
+void getIn() {
+  tone(buzzer, NOTE_E4, 250);
+  delay(250*1.3);
+  tone(buzzer, NOTE_C4, 250);
+  delay(250*1.3);
+  noTone(buzzer);
+}
+
+void getOut() {
+  tone(buzzer, NOTE_C4, 250);
+  delay(250*1.3);
+  tone(buzzer, NOTE_E4, 250);
+  delay(250*1.3);
+  noTone(buzzer);
 }
 
 //Returns the distance of the ultrasonic sensor that is passed in
