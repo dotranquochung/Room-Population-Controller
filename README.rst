@@ -4,7 +4,7 @@ Mass Gathering Detective System
 **Author:** Yicheng Qian, Huan Le, Hung Do, Kevin Kong
 --------------------------------------------------------
 
-The idea of this system is to detect if a mass gathering exists in a room. In the past, people wore masks. However, the number of new coronavirus cases continues to increase rapidly. We do not believe that large gatherings of people will remain inappropriate until the Coronavirus has completely disappeared. So we came up with the idea and tried to build it. The beauty of this system is that it could be applied to any room for controlling the number of people in a room.
+The idea of this system is to detect if a mass gathering exists in a room. In the past, people wore masks. However, the number of new coronavirus cases continues to increase rapidly. We do not believe that large gatherings of people will remain inappropriate until the Coronavirus has completely disappeared. So we came up with the idea and tried to build it. The beauty of this system is that it could be applied to any square room for controlling the number of people in a room. The design could be added to a modern home security system since it is more powerful compared to the entry sensors a home security system normally has.
 
 General Ideas on Building a System with Multiple Subsystems
 ------------------------------------------------------------
