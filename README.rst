@@ -90,12 +90,13 @@ Room Measurement
 ~~~~~~~~~~~~~~~~
 
 .. image:: https://user-images.githubusercontent.com/98708375/167048748-8d324f42-c839-445f-9121-78314edb5263.png
+  :width: 600
 
 People Counter
 ~~~~~~~~~~~~~~
 
 .. image:: https://user-images.githubusercontent.com/98708375/167000703-3edbf8be-f9ea-4f9d-a6e0-232cabd388b4.png
-
+  :width: 600
 
 Physical Design
 ---------------------------------
@@ -131,6 +132,7 @@ Android App
 The Android app serves as the central hub of this system. It has a scan button to scan all devices around that have Bluetooth on. It helps us connect to our subsystems. Only one subsystem can be connected at a time. The Send Data button is used to send data to our subsystems(all subsystems are configured as child nodes which means the two subsystems cannot communicate with each other). The Android app also has a text field for inputting the message or data that we want to pass to our subsystems. The message could be the query message which asks for the updated status of a subsystem or a data message which sets up a subsystem(setting limit). The Received data area will display the messages that come from two subsystems. This Android app works as a central hub that allows users to control and monitor the entire system.
 
 .. image:: https://user-images.githubusercontent.com/64414323/167525725-01c10086-8a27-479b-9a3d-385d048c4c41.jpg
+  :width: 350
 
 Demo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
