@@ -81,10 +81,6 @@ Cost
 * Jumper Wires
 .. image:: https://user-images.githubusercontent.com/49627097/164306114-581aaf47-cdf7-462b-9973-6d57cd752de1.png
 
-Schedule
----------------------------------
-
-.. image:: https://github.com/dotranquochung/Room-Population-Controller/blob/main/plan.png
 
 
 Circuit/Wiring Diagram
@@ -144,8 +140,13 @@ The youtube video is recorded on the demo day on Thursday, May 5.
 
 
 
-Thoughts/Challenges
----------------------------------
+Thoughts/Challenges and Actual Time Use
+----------------------------------------
+
+This design is done by using 6 weeks' lab time and additional time aside from the regular lab hour. We literally worked the whole day every Thursday. We could not give a specific number of hours here, but it should exceed 50 hours of work for sure. For the first several weeks, we were spending most of our time knowing how to use the shield. The shield has program and code modes and thus we were not knowing how to successfully upload the program to the board, and the strange thing is this is actually not mentioned on the product page. The program can only be uploaded to the board when the shield is in program mode.
+
+.. image:: https://github.com/dotranquochung/Room-Population-Controller/blob/main/plan.png
+
 The most challenging situation we have is working on the Android App. First of all, we found the Android code provided on Github. We tried many ways to make it work.
 
 - Attempt 1: Import the Android project into Android Studio
