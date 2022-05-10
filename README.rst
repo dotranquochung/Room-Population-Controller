@@ -139,7 +139,7 @@ Demo
 The youtube video is recorded on the demo day on Thursday, May 5.
 
 - Demo how the system works: https://youtu.be/T28fpxAF_44
-
+- Demo of the system interfacing with an android phone: https://www.youtube.com/watch?v=cxvbJ1gWcLI
 
 
 Thoughts/Challenges and Actual Time Use
