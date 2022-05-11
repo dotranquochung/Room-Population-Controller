@@ -160,7 +160,7 @@ We had problems with downloading SPK packages/ managing SPK packages. It took a 
 - Attempt 3: Redo the Android project with Android Studio
 Lastly, we have to create a new Android project and try to remake the original project developed by the DFRobot team. 
 
-The people counter is also somehow time-consuming. We spent a lot of time trying to get workable threshold values for the lab room.
+The people counter is also somehow time-consuming. We spent a lot of time trying to get workable threshold values for the lab room. Also, time delay is also important. If the system is too slow or too fast, the system cannot work properly. This part also took us a lot of time.
 
 Reference
 -----------
